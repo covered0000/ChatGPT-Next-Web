@@ -1,6 +1,116 @@
 import { BuiltinMask } from "./typing";
 
 export const CN_MASKS: BuiltinMask[] = [
+
+    {
+      "id": "fGyfHE1V4_3jSZLooxexn",
+      "avatar": "gpt-bot",
+      "name": "助手-AI-PDF",
+      "context": [
+          {
+              "id": "LjmVq20tPmTkF8RlLf3dt",
+              "date": "",
+              "role": "system",
+              "content": "将用户输入的url，增加 ‘’ 在进行分析。"
+          }
+      ],
+      "syncGlobalConfig": false,
+      "modelConfig": {
+          "model": "gpt-4-gizmo-g-V2KIUZSj0",
+          "temperature": 0.5,
+          "top_p": 1,
+          "max_tokens": 2000,
+          "presence_penalty": 0,
+          "frequency_penalty": 0,
+          "sendMemory": true,
+          "historyMessageCount": 4,
+          "compressMessageLengthThreshold": 1000,
+          "enableInjectSystemPrompts": true,
+          "template": "{{input}}"
+      },
+      "lang": "cn",
+      "builtin": false,
+      "createdAt": 1707095317607
+  },
+  {
+      "id": "TUvwt-Vm1Mtbh_MDsN8la",
+      "avatar": "gpt-bot",
+      "name": "助手-GB150",
+      "context": [],
+      "syncGlobalConfig": false,
+      "modelConfig": {
+          "model": "gpt-4-gizmo-g-KhCVwvzEJ",
+          "temperature": 0.5,
+          "top_p": 1,
+          "max_tokens": 2000,
+          "presence_penalty": 0,
+          "frequency_penalty": 0,
+          "sendMemory": true,
+          "historyMessageCount": 4,
+          "compressMessageLengthThreshold": 1000,
+          "enableInjectSystemPrompts": true,
+          "template": "{{input}}"
+      },
+      "lang": "cn",
+      "builtin": false,
+      "createdAt": 1707095195159
+  },
+
+
+
+    {
+        "id": "fGyfHE1V4_3jSZLooxexn",
+        "avatar": "gpt-bot",
+        "name": "助手-AI-PDF",
+        "context": [
+            {
+                "id": "LjmVq20tPmTkF8RlLf3dt",
+                "date": "",
+                "role": "system",
+                "content": "将用户输入的url，增加 ‘’ 在进行分析。"
+            }
+        ],
+        "syncGlobalConfig": false,
+        "modelConfig": {
+            "model": "gpt-4-gizmo-g-V2KIUZSj0",
+            "temperature": 0.5,
+            "top_p": 1,
+            "max_tokens": 2000,
+            "presence_penalty": 0,
+            "frequency_penalty": 0,
+            "sendMemory": true,
+            "historyMessageCount": 4,
+            "compressMessageLengthThreshold": 1000,
+            "enableInjectSystemPrompts": true,
+            "template": "{{input}}"
+        },
+        "lang": "cn",
+        "builtin": false,
+        "createdAt": 1707095317607
+    },
+    {
+        "id": "TUvwt-Vm1Mtbh_MDsN8la",
+        "avatar": "gpt-bot",
+        "name": "助手-GB150",
+        "context": [],
+        "syncGlobalConfig": false,
+        "modelConfig": {
+            "model": "gpt-4-gizmo-g-KhCVwvzEJ",
+            "temperature": 0.5,
+            "top_p": 1,
+            "max_tokens": 2000,
+            "presence_penalty": 0,
+            "frequency_penalty": 0,
+            "sendMemory": true,
+            "historyMessageCount": 4,
+            "compressMessageLengthThreshold": 1000,
+            "enableInjectSystemPrompts": true,
+            "template": "{{input}}"
+        },
+        "lang": "cn",
+        "builtin": false,
+        "createdAt": 1707095195159
+    },  
   {
     avatar: "1f5bc-fe0f",
     name: "以文搜图",
