@@ -55,10 +55,8 @@ export function collectModels(
   customModels: string,
 ) {
   const modelTable = collectModelTable(models, customModels);
-  // 对 
-  let allModels_no_sort = Object.values(modelTable);
-  allModels_no_sort.sort((a, b) => a.displayName.localeCompare(b.displayName));
-  const allModels = allModels_no_sort;
+  // cf 增加排序
+  const allModels = Object.values(modelTable).sort((a, b) => a.displayName.localeCompare(b.displayName));
 
   return allModels;
 }
