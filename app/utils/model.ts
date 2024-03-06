@@ -55,7 +55,10 @@ export function collectModels(
   customModels: string,
 ) {
   const modelTable = collectModelTable(models, customModels);
-  const allModels = Object.values(modelTable);
+  // 对 
+  let allModels_no_sort = Object.values(modelTable);
+  allModels_no_sort.sort((a, b) => a.displayName.localeCompare(b.displayName));
+  const allModels = allModels_no_sort;
 
   return allModels;
 }
