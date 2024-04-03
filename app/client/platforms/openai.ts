@@ -9,7 +9,14 @@ import {
 } from "@/app/constant";
 import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
-import { ChatOptions, getHeaders, LLMApi, LLMModel, LLMUsage } from "../api";
+import {
+  ChatOptions,
+  getHeaders,
+  LLMApi,
+  LLMModel,
+  LLMUsage,
+  MultimodalContent,
+} from "../api";
 import Locale from "../../locales";
 import {
   EventStreamContentType,
@@ -18,6 +25,11 @@ import {
 import { prettyObject } from "@/app/utils/format";
 import { getClientConfig } from "@/app/config/client";
 import { makeAzurePath } from "@/app/azure";
+import {
+  getMessageTextContent,
+  getMessageImages,
+  isVisionModel,
+} from "@/app/utils";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -72,9 +84,10 @@ export class ChatGPTApi implements LLMApi {
   }
 
   async chat(options: ChatOptions) {
+    const visionModel = isVisionModel(options.config.model);
     const messages = options.messages.map((v) => ({
       role: v.role,
-      content: v.content,
+      content: visionModel ? v.content : getMessageTextContent(v),
     }));
 
     const modelConfig = {
@@ -96,6 +109,16 @@ export class ChatGPTApi implements LLMApi {
       // max_tokens: Math.max(modelConfig.max_tokens, 1024),
       // Please do not ask me why not send max_tokens, no reason, this param is just shit, I dont want to explain anymore.
     };
+
+    // add max_tokens to vision model
+    if (visionModel) {
+      Object.defineProperty(requestPayload, "max_tokens", {
+        enumerable: true,
+        configurable: true,
+        writable: true,
+        value: modelConfig.max_tokens,
+      });
+    }
 
     console.log("[Request] openai payload: ", requestPayload);
 
@@ -128,6 +151,9 @@ export class ChatGPTApi implements LLMApi {
           if (finished || controller.signal.aborted) {
             responseText += remainText;
             console.log("[Response Animation] finished");
+            if (responseText?.length === 0) {
+              options.onError?.(new Error("empty response from server"));
+            }
             return;
           }
 
@@ -202,19 +228,21 @@ export class ChatGPTApi implements LLMApi {
             }
             const text = msg.data;
             try {
-              const json = JSON.parse(text) as {
-                choices: Array<{
-                  delta: {
-                    content: string;
-                  };
-                }>;
-              };
-              const delta = json.choices[0]?.delta?.content;
+              const json = JSON.parse(text);
+              const choices = json.choices as Array<{ delta: { content: string } }>;
+              const delta = choices[0]?.delta?.content;
+              const textmoderation = json?.prompt_filter_results;
+
               if (delta) {
                 remainText += delta;
               }
+
+              if (textmoderation && textmoderation.length > 0 && ServiceProvider.Azure) {
+                const contentFilterResults = textmoderation[0]?.content_filter_results;
+                console.log(`[${ServiceProvider.Azure}] [Text Moderation] flagged categories result:`, contentFilterResults);
+              }
             } catch (e) {
-              console.error("[Request] parse error", text);
+              console.error("[Request] parse error", text, msg);
             }
           },
           onclose() {
