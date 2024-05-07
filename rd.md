@@ -78,8 +78,8 @@ export function collectModelsWithDefaultModel(
 }
 ```
 # claude googe模型砖openai接口
-startsWith.*claude modelName.startsWith("claude") &&
-startsWith.*gemini
+startsWith.*claude modelName.startsWith("claude111") &&
+startsWith.*gemini 
 # 回退版本
 $ hart
 $ git push -f -u next main
