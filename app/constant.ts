@@ -281,21 +281,33 @@ export const DEFAULT_MODELS = [
     },
   })),
   ...googleModels.map((name) => ({
+    // name,
+    // available: true,
+    // provider: {
+    //   id: "google",
+    //   providerName: "Google",
+    //   providerType: "google",
     name,
     available: true,
     provider: {
-      id: "google",
-      providerName: "Google",
-      providerType: "google",
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
     },
   })),
   ...anthropicModels.map((name) => ({
+    // name,
+    // available: true,
+    // provider: {
+    //   id: "anthropic",
+    //   providerName: "Anthropic",
+    //   providerType: "anthropic",
     name,
     available: true,
     provider: {
-      id: "anthropic",
-      providerName: "Anthropic",
-      providerType: "anthropic",
+      id: "openai",
+      providerName: "OpenAI",
+      providerType: "openai",
     },
   })),
   ...baiduModels.map((name) => ({
