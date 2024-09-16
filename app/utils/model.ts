@@ -160,8 +160,8 @@ export function collectModels(
   const modelTable = collectModelTable(models, customModels);
   let allModels = Object.values(modelTable);
 
-  allModels = sortModelTable(allModels);
-
+  // allModels = sortModelTable(allModels);
+  allModels = Object.values(modelTable).sort((a, b) => a.displayName.localeCompare(b.displayName));
   return allModels;
 }
 
@@ -177,8 +177,8 @@ export function collectModelsWithDefaultModel(
   );
   let allModels = Object.values(modelTable);
 
-  allModels = sortModelTable(allModels);
-
+  // allModels = sortModelTable(allModels);
+  allModels = Object.values(modelTable).sort((a, b) => a.displayName.localeCompare(b.displayName));
   return allModels;
 }
 
