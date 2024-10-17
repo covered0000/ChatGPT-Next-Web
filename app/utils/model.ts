@@ -161,7 +161,11 @@ export function collectModels(
   let allModels = Object.values(modelTable);
 
   // allModels = sortModelTable(allModels);
-  allModels = Object.values(modelTable).sort((a, b) => a.displayName.localeCompare(b.displayName));
+  // 过滤掉 Azure 模型
+  allModels = allModels.filter(model => model.provider?.providerName.toLowerCase() !== "azure");
+
+  // 对模型排序
+  allModels = allModels.sort((a, b) => a.displayName.localeCompare(b.displayName));
   return allModels;
 }
 
@@ -178,7 +182,11 @@ export function collectModelsWithDefaultModel(
   let allModels = Object.values(modelTable);
 
   // allModels = sortModelTable(allModels);
-  allModels = Object.values(modelTable).sort((a, b) => a.displayName.localeCompare(b.displayName));
+  // 过滤掉 Azure 模型
+  allModels = allModels.filter(model => model.provider?.providerName.toLowerCase() !== "azure");
+
+  // 对模型排序
+  allModels = allModels.sort((a, b) => a.displayName.localeCompare(b.displayName));
   return allModels;
 }
 

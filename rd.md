@@ -39,3 +39,16 @@ startsWith.*gemini
 # 回退版本
 $ hart
 $ git push -f -u next main
+
+# 过滤Azure
+  // 过滤掉 Azure 模型
+  allModels = allModels.filter(model => model.provider?.providerName.toLowerCase() !== "azure");
+  // 对模型排序
+  allModels = allModels.sort((a, b) => a.displayName.localeCompare(b.displayName));
+
+# 合并代码过程
+1 github中同步main分支
+2 ide中同步main分支
+3 ide中选择dev分支，合并main分支
+4 提交dev分支到github，vercel自动编译成功后验证dev分支正确性。
+5 ide中选择g4分支，合并dev分支，vercel自动编译后，完成升级。
