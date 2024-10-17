@@ -40,6 +40,12 @@ startsWith.*gemini
 $ hart
 $ git push -f -u next main
 
+# 过滤Azure
+  // 过滤掉 Azure 模型
+  allModels = allModels.filter(model => model.provider?.providerName.toLowerCase() !== "azure");
+  // 对模型排序
+  allModels = allModels.sort((a, b) => a.displayName.localeCompare(b.displayName));
+
 # 合并代码过程
 1 github中同步main分支
 2 ide中同步main分支
